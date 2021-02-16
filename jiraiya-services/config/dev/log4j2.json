@@ -1,0 +1,57 @@
+{
+  "configuration": {
+    "name": "Default",
+    "properties": {
+      "property": [
+        {
+          "name": "log-path",
+          "value": "/etc/feenicia/ilustrate/logs"
+        },
+        {
+          "name": "nameFile",
+          "value": "jiraiya-services"
+        }
+      ]
+    },
+    "appenders": {
+      "Console": {
+        "name": "Console-Appender",
+        "target": "SYSTEM_OUT",
+        "PatternLayout": {
+          "pattern": "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1}:::%M:::%L --- %msg%n"
+        }
+      },
+      "RollingFile": {
+        "name":"RollingFile-Appender",
+        "fileName":"${log-path}/${nameFile}.log",
+        "filePattern":"${log-path}/${nameFile}-%d{MM-dd-yy-HH-mm-ss}-%i.log.gz",
+        "PatternLayout": {
+          "pattern":"[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1}:::%M:::%L --- %msg%n"
+        },
+        "Policies": {
+          "TimeBasedTriggeringPolicy": {
+            "interval":86400
+          }
+        },
+        "DefaultRolloverStrategy": {
+          "max":"60"
+        }
+      }
+    },
+    "loggers": {
+      "logger": [{
+        "name": "com.mx.jiraiya",
+        "level": "debug",
+        "additivity": "false",
+        "appender-ref": [{
+          "ref": "Console-Appender",
+          "level": "debug"
+        },
+          {
+            "ref": "RollingFile-Appender",
+            "level": "debug"
+          }]
+      }]
+    }
+  }
+}

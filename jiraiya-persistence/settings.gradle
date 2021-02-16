@@ -1,0 +1,4 @@
+rootProject.name = 'jiraiya-persistence'
+
+include ':jiraiya-common'
+project(':jiraiya-common').projectDir = new File(settingsDir,'../jiraiya-common')

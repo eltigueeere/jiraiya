@@ -1,0 +1,11 @@
+--INSERT INTO `users` (username, password, enabled) VALUES ('user1','$2a$10$gV6k0H4V0TAlr80BIcf6IOqD0Gq7RJ3LC0gytuUcoBNQFsWYsWA7W',1);
+--INSERT INTO `users` (username, password, enabled) VALUES ('admin','$2a$10$lvrgiMlpEjMosIP6GUL/B.VnezopE3N9g3ADlbtDVBTB0wqUiilUm',1);
+--
+--INSERT INTO `authorities` (authority) VALUES ('ROLE_USER');
+--INSERT INTO `authorities` (authority) VALUES ('ROLE_ADMIN');
+--
+--INSERT INTO `tb_empresa` (`id_empresa`, `nombre_empresa`) VALUES ('13', 'Bodegas Alianza')
+--INSERT INTO `tb_empresa` (`id_empresa`, `nombre_empresa`) VALUES ('33', 'El Zorro')
+--
+--INSERT INTO `tb_tienda` (`direcion`, `id_empresa`, `id_sucursal`, `nombre_sucursal`) VALUES ('Polanco', '13', '1', 'Alianza Anzures')
+--INSERT INTO `tb_tienda` (`direcion`, `id_empresa`, `id_sucursal`, `nombre_sucursal`) VALUES ('Tacuba', '33', '2', 'El Zorro Tacuba')

@@ -1,0 +1,25 @@
+plugins {
+	id 'java-library'
+}
+
+group = 'com.mx.jiraiya'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	
+	// Loggin
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-log4j2', version: '2.2.6.RELEASE'
+	// Jackson
+	compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.8'
+
+	//despues de crear
+	compile "com.google.zxing:core:3.3.0"
+	compile 'com.google.zxing:javase:3.3.0'
+	
+}
+

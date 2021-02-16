@@ -1,0 +1,95 @@
+plugins {
+	id 'org.springframework.boot' version '2.2.5.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+	id 'java'
+	id 'war'
+	id 'org.sonarqube' version '2.7'
+}
+
+group = 'com.mx.jiraiya'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+sonarqube {
+    properties {
+        property 'sonar.projectName', 'jiraiya-service'
+    }
+}
+
+
+repositories {
+	mavenCentral()
+}
+
+configurations {
+	providedRuntime
+	compile.exclude module : 'spring-boot-starter-logging'
+	//compile.exclude module: 'spring-boot-starter-tomcat'
+	developmentOnly
+	runtimeClasspath {
+		extendsFrom developmentOnly
+	}
+}
+
+dependencies {
+	implementation('org.springframework.boot:spring-boot-starter-log4j2')
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	//implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+
+	//runtimeOnly 'mysql:mysql-connector-java'
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+	//despues de crear
+	compile "com.google.zxing:core:3.3.0"
+	compile 'com.google.zxing:javase:3.3.0'
+	compile 'io.jsonwebtoken:jjwt-api:0.11.2'
+	runtime 'io.jsonwebtoken:jjwt-impl:0.11.2',
+			// Uncomment the next line if you want to use RSASSA-PSS (PS256, PS384, PS512) algorithms:
+			//'org.bouncycastle:bcprov-jdk15on:1.60',
+			'io.jsonwebtoken:jjwt-jackson:0.11.2' // or 'io.jsonwebtoken:jjwt-gson:0.11.2' for gson
+
+
+	// JAVAX ///
+	compile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+	
+	//jiraiya
+	compile project(":jiraiya-common")
+	compile project(":jiraiya-persistence")
+}
+
+
+
+
+task setEnvironment (type: Copy)  {
+
+if (project.hasProperty("environment")){
+	println "Estableciendo ambiente de trabajo en ${environment}"
+	
+	def folder = new File("config/${environment}")
+	
+	if (!folder.exists()){
+		throw new RuntimeException('No existe el ambiente de trabajo a configurar')
+	}
+	
+	from "config/${environment}"
+	into 'src/main/resources'
+	include '**/*.properties'
+	include '**/*.xml'
+	include '**/*.json'
+	include '**/*.txt'
+
+    println "Ambiente [${environment}] configurado correctamente "
+    }
+}
+
+if (!project.hasProperty("environment")) {
+    setEnvironment.enabled = false
+}
+
+test {
+	useJUnitPlatform()
+}
